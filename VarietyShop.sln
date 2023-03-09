@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VarietyShop", "VarietyShop\VarietyShop.csproj", "{999B4265-32DF-4E1C-ABE5-D3DAFA0A1E9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VarietyShop.API", "VarietyShop.API\VarietyShop.API.csproj", "{999B4265-32DF-4E1C-ABE5-D3DAFA0A1E9D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VarietyShop.Domain", "VarietyShop.Domain\VarietyShop.Domain.csproj", "{2BA4E447-B35A-4226-AA5C-BAAD48326BA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VarietyShop.Infra", "VarietyShop.Infra\VarietyShop.Infra.csproj", "{308135CE-B3C0-41FA-B140-01DD0C271500}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{999B4265-32DF-4E1C-ABE5-D3DAFA0A1E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{999B4265-32DF-4E1C-ABE5-D3DAFA0A1E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{999B4265-32DF-4E1C-ABE5-D3DAFA0A1E9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BA4E447-B35A-4226-AA5C-BAAD48326BA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BA4E447-B35A-4226-AA5C-BAAD48326BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BA4E447-B35A-4226-AA5C-BAAD48326BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BA4E447-B35A-4226-AA5C-BAAD48326BA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{308135CE-B3C0-41FA-B140-01DD0C271500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{308135CE-B3C0-41FA-B140-01DD0C271500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{308135CE-B3C0-41FA-B140-01DD0C271500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{308135CE-B3C0-41FA-B140-01DD0C271500}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
