@@ -1,9 +1,7 @@
-﻿namespace VarietyShop.Domain.Models;
+﻿namespace VarietyShop.Domain.InputModels;
 
-public class User
+public class CreateUserInputModel
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
     public string Cpf { get; set; }
     public string Email { get; set; }
     public string PasswordHash { get; set; }

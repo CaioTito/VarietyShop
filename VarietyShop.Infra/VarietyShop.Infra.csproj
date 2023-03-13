@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\VarietyShop.Domain\VarietyShop.Domain.csproj" />
   </ItemGroup>
 
 </Project>
