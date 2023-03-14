@@ -1,4 +1,4 @@
-﻿namespace VarietyShop.Domain.ViewModels
+﻿namespace VarietyShop.Application.ViewModels
 {
     public class UserViewModel
     {
