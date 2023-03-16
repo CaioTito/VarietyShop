@@ -1,0 +1,3 @@
+## VarietyShop
+
+VarietyShop API.
