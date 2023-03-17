@@ -8,10 +8,10 @@ public class UserMap : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("Users");
-        
+        builder.ToTable(nameof(User));
+
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Id)
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
@@ -41,7 +41,20 @@ public class UserMap : IEntityTypeConfiguration<User>
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(255);
 
-        builder.HasIndex(x => x.Email, "IX_User_Email").IsUnique();
+        builder.Property(x => x.Slug)
+                .IsRequired()
+                .HasColumnName("Slug")
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(20);
+
+        builder.Property(x => x.Active)
+                .IsRequired()
+                .HasColumnName("Active")
+                .HasColumnType("BIT")
+                .HasDefaultValue(false);
+
+        builder.HasIndex(x => x.Email, "IX_User_Email")
+                .IsUnique();
 
         builder.HasMany(x => x.Roles)
                 .WithMany(x => x.Users)
