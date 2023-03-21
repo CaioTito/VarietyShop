@@ -4,7 +4,7 @@ namespace VarietyShop.Domain.Models;
 
 public class Product : BaseEntity
 {
-    public Product(string categoryId, int quantity, decimal value, DateTime entryDate)
+    public Product(int categoryId, int quantity, decimal value, DateTime entryDate)
     {
         CategoryId = categoryId;
         Quantity = quantity;
@@ -12,7 +12,7 @@ public class Product : BaseEntity
         EntryDate = entryDate;
     }
 
-    public string CategoryId { get; private set; }
+    public int CategoryId { get; private set; }
     public int Quantity { get; private set; }
     public decimal Value { get; private set; }
     public DateTime EntryDate { get; set; }
