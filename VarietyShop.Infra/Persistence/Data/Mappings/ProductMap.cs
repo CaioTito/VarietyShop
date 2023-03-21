@@ -30,8 +30,14 @@ public class ProductMap : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Value)
                 .IsRequired()
                 .HasColumnName(nameof(Product.Value))
-                .HasColumnType("NUMERIC(38,2)")
+                .HasColumnType("NUMERIC(10,2)")
                 .HasDefaultValue(0.00M);
+
+        builder.Property(x => x.Slug)
+                .IsRequired()
+                .HasColumnName(nameof(Product.Slug))
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(20);
 
         builder.Property(x => x.Active)
                 .IsRequired()

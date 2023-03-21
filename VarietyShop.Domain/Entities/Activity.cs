@@ -4,7 +4,7 @@ namespace VarietyShop.Domain.Models;
 
 public class Activity : BaseEntity
 {
-    public Activity(int clientId, int productId, DateTime createDate, DateTime lastUpdateDate, int quantity, decimal value)
+    public Activity(int clientId, int productId, int quantity, decimal value, DateTime createDate, DateTime lastUpdateDate)
     {
         ClientId = clientId;
         ProductId = productId;
@@ -20,7 +20,6 @@ public class Activity : BaseEntity
     public decimal Value { get; private set; }
     public DateTime CreateDate { get; private set; }
     public DateTime LastUpdateDate { get; private set; }
-    public bool Active { get; private set; }
     public User Client { get; private set; }
     public List<Product> Products { get; private set; }
 }

@@ -14,8 +14,6 @@ public class User : BaseEntity
     public string Cpf { get; private set; }
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
-    public string Slug { get; set; }
-    public bool Active { get; private set; }
     public List<Role> Roles { get; private set; }
     public List<Activity> Activities { get; private set; }
 }

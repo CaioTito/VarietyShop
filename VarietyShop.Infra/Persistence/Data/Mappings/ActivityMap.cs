@@ -30,7 +30,7 @@ public class ActivityMap : IEntityTypeConfiguration<Activity>
         builder.Property(x => x.Value)
                 .IsRequired()
                 .HasColumnName(nameof(Activity.Value))
-                .HasColumnType("NUMERIC(38,2)")
+                .HasColumnType("NUMERIC(10,2)")
                 .HasDefaultValue(0.00M);
 
         builder.Property(x => x.CreateDate)
@@ -44,6 +44,12 @@ public class ActivityMap : IEntityTypeConfiguration<Activity>
                 .HasColumnName(nameof(Activity.LastUpdateDate))
                 .HasColumnType("SMALLDATETIME")
                 .HasDefaultValue(DateTime.Now.ToUniversalTime());
+
+        builder.Property(x => x.Slug)
+                .IsRequired()
+                .HasColumnName(nameof(Activity.Slug))
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(20);
 
         builder.Property(x => x.Active)
                 .IsRequired()
