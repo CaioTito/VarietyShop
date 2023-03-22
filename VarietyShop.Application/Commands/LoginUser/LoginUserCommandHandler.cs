@@ -4,7 +4,7 @@ using VarietyShop.Domain.Interfaces.Services;
 
 namespace VarietyShop.Application.Commands.LoginUser;
 
-public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUserViewModel>
+public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, string>
 {
     private readonly IAuthService _authService;
     private readonly IUserRepository _userRepository;
@@ -15,7 +15,7 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
         _userRepository = userRepository;
     }
 
-    public async Task<LoginUserViewModel> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
         var passwordHash = _authService.GeneratePasswordHash(request.Password);
 
@@ -26,8 +26,6 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
             return null;
         }
 
-        var token = _authService.GenerateJwtToken(user.Email, user.Roles);
-
-        return new LoginUserViewModel(user.Email, token);
+        return _authService.GenerateJwtToken(user.Email, user.Roles);
     }
 }

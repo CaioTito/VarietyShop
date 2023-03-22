@@ -81,6 +81,6 @@ public class UsersController : ControllerBase
 
     public async Task<IActionResult> Login([FromBody] LoginUserCommand login)
     {
-        return Ok(await _mediator.Send(login));
+        return Ok(new { token = await _mediator.Send(login) } );
     }
 }
