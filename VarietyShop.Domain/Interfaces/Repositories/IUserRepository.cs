@@ -9,5 +9,7 @@ namespace VarietyShop.Domain.Interfaces.Repositories
         Task UpdateAsync();
         Task<List<User>> GetAllAsync();
         Task<User> GetByIdAsync(int id);
+
+        Task<User> GetByPasswordAndEmailAsync(string email, string password);
     }
 }

@@ -11,11 +11,11 @@ public class VarietyShopDataContext : DbContext
 
 	}
 
-    public DbSet<Category> Category { get; set; }
-    public DbSet<Product> Product { get; set; }
-    public DbSet<Role> Role { get; set; }
-    public DbSet<Activity> Transaction { get; set; }
-    public DbSet<User> User { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<Activity> Transactions { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
