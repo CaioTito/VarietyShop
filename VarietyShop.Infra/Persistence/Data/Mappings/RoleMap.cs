@@ -18,19 +18,19 @@ public class RoleMap : IEntityTypeConfiguration<Role>
 
         builder.Property(x => x.Name)
                 .IsRequired()
-                .HasColumnName("Name")
+                .HasColumnName(nameof(Role.Name))
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(20);
 
         builder.Property(x => x.Slug)
                 .IsRequired()
-                .HasColumnName("Slug")
+                .HasColumnName(nameof(Role.Slug))
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(20);
 
         builder.Property(x => x.Active)
                 .IsRequired()
-                .HasColumnName("Active")
+                .HasColumnName(nameof(Role.Active))
                 .HasColumnType("BIT")
                 .HasDefaultValue(false);
 

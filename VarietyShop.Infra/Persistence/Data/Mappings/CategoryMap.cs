@@ -18,19 +18,19 @@ public class CategoryMap : IEntityTypeConfiguration<Category>
 
         builder.Property(x => x.Name)
                 .IsRequired()
-                .HasColumnName("Name")
+                .HasColumnName(nameof(Category.Name))
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(80);
 
         builder.Property(x => x.Slug)
                 .IsRequired()
-                .HasColumnName("Slug")
+                .HasColumnName(nameof(Category.Slug))
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(20);
 
         builder.Property(x => x.Active)
                 .IsRequired()
-                .HasColumnName("Active")
+                .HasColumnName(nameof(Category.Active))
                 .HasColumnType("BIT")
                 .HasDefaultValue(false);
 

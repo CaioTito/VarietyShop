@@ -18,38 +18,38 @@ public class UserMap : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Name)
                 .IsRequired()
-                .HasColumnName("Name")
+                .HasColumnName(nameof(User.Name))
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(80);
 
         builder.Property(x => x.Cpf)
                 .IsRequired()
-                .HasColumnName("CPF")
+                .HasColumnName(nameof(User.Cpf))
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(14)
                 .IsFixedLength();
 
         builder.Property(x => x.Email)
                 .IsRequired()
-                .HasColumnName("Email")
+                .HasColumnName(nameof(User.Email))
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(80);
 
         builder.Property(x => x.PasswordHash)
                 .IsRequired()
-                .HasColumnName("PasswordHash")
+                .HasColumnName(nameof(User.PasswordHash))
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(255);
 
         builder.Property(x => x.Slug)
                 .IsRequired()
-                .HasColumnName("Slug")
+                .HasColumnName(nameof(User.Slug))
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(20);
 
         builder.Property(x => x.Active)
                 .IsRequired()
-                .HasColumnName("Active")
+                .HasColumnName(nameof(User.Active))
                 .HasColumnType("BIT")
                 .HasDefaultValue(false);
 
