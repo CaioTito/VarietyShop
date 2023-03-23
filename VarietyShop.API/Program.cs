@@ -16,42 +16,33 @@ using VarietyShop.Infra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+ConfigureAuthentication(builder);
+ConfigureMvc(builder);
+ConfigureSwagger(builder);
+ConfigureServices(builder);
+ConfigureRepositories(builder);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "VarietyShop.API", Version = "v1" });
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "JWT Authorization header using Bearer scheme."
-    });
+app.UseHttpsRedirection();
 
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                     {
-                         {
-                               new OpenApiSecurityScheme
-                                 {
-                                     Reference = new OpenApiReference
-                                     {
-                                         Type = ReferenceType.SecurityScheme,
-                                         Id = "Bearer"
-                                     }
-                                 },
-                                 new string[] {}
-                         }
-                     });
-});
+app.UseAuthentication();
+app.UseAuthorization();
 
-builder.Services
+app.MapControllers();
+
+app.Run();
+
+#region Authentication
+void ConfigureAuthentication(WebApplicationBuilder builder)
+{
+    builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -68,30 +59,69 @@ builder.Services
             (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-
-var connectionString = builder.Configuration.GetConnectionString("VarietyShopCs");
-builder.Services.AddDbContext<VarietyShopDataContext>(p => p.UseSqlServer(connectionString));
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-
-
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateUserCommand).Assembly));
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
 }
+#endregion
 
-app.UseHttpsRedirection();
+#region MVC
+void ConfigureMvc(WebApplicationBuilder builder)
+{
+    builder.Services.AddControllers();
+}
+#endregion
 
-app.UseAuthentication();
-app.UseAuthorization();
+#region Swagger
+void ConfigureSwagger(WebApplicationBuilder builder)
+{
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "VarietyShop.API", Version = "v1" });
 
-app.MapControllers();
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "JWT Authorization header using Bearer scheme."
+        });
 
-app.Run();
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                new string[] {}
+            }
+        });
+    });
+}
+#endregion
+
+#region Services
+void ConfigureServices(WebApplicationBuilder builder)
+{
+    var connectionString = builder.Configuration.GetConnectionString("VarietyShopCs");
+    builder.Services.AddDbContext<VarietyShopDataContext>(options =>
+        options.UseSqlServer(connectionString));
+
+    builder.Services.AddEndpointsApiExplorer();
+
+    builder.Services.AddScoped<IAuthService, AuthService>();
+
+    builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateUserCommand).Assembly));
+}
+#endregion
+
+#region Repositories
+void ConfigureRepositories(WebApplicationBuilder builder)
+{
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
+}
+#endregion
