@@ -1,4 +1,7 @@
-﻿using VarietyShop.Domain.Interfaces.Repositories;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.Domain.Models;
 using VarietyShop.Infra.Persistence.Data;
 

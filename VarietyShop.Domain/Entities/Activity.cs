@@ -1,4 +1,6 @@
-﻿using VarietyShop.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using VarietyShop.Domain.Entities;
 
 namespace VarietyShop.Domain.Models;
 
