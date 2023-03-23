@@ -8,5 +8,6 @@ public class CreateUserCommand : IRequest<int>
     public string Cpf { get; set; }
     public string Email { get; set; }
     public string PasswordHash { get; set; }
-    public string Role { get; set; }
+    public string Slug { get; set; }
+    public bool Active { get; set; }
 }

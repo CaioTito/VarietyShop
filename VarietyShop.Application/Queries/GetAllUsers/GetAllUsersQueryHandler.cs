@@ -14,7 +14,11 @@ namespace VarietyShop.Application.Queries.GetAllUsers
         }
         public async Task<List<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetAllAsync();
+
+            return user
+                .Select(p => new UserViewModel(p.Name, p.Cpf, p.Email, p.Roles))
+                .ToList();
         }
     }
 }

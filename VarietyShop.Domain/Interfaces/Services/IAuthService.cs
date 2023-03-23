@@ -1,4 +1,4 @@
-using VarietyShop.Domain.Models;
+using VarietyShop.Domain.Entities;
 
 namespace VarietyShop.Domain.Interfaces.Services;
 
