@@ -1,6 +1,4 @@
-﻿using VarietyShop.Domain.Entities;
-
-namespace VarietyShop.Domain.Models;
+﻿namespace VarietyShop.Domain.Entities;
 
 public class Role : BaseEntity
 {

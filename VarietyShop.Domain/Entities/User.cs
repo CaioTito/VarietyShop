@@ -1,14 +1,15 @@
-﻿using VarietyShop.Domain.Entities;
-
-namespace VarietyShop.Domain.Models;
+﻿namespace VarietyShop.Domain.Entities;
 
 public class User : BaseEntity
 {
-    public User(string cpf, string email, string passwordHash)
+    public User(string name, string cpf, string email, string passwordHash, string slug, bool active)
     {
+        Name = name;
         Cpf = cpf;
         Email = email;
         PasswordHash = passwordHash;
+        Slug = slug;
+        Active = active;
     }
 
     public string Cpf { get; private set; }
@@ -16,4 +17,10 @@ public class User : BaseEntity
     public string PasswordHash { get; private set; }
     public List<Role> Roles { get; private set; }
     public List<Activity> Activities { get; private set; }
+
+    public void Update(string email, List<Role> role)
+    {
+        Email = email;
+        Roles = role;
+    }
 }

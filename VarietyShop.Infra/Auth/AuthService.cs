@@ -4,8 +4,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using VarietyShop.Domain.Entities;
 using VarietyShop.Domain.Interfaces.Services;
-using VarietyShop.Domain.Models;
 
 namespace VarietyShop.Infra.Auth;
 
@@ -50,8 +50,8 @@ public class AuthService : IAuthService
     }
 
     public string GeneratePasswordHash(string password)
-    {        
-        using(SHA256 sha256Hash = SHA256.Create())
+    {
+        using (SHA256 sha256Hash = SHA256.Create())
         {
             byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
 

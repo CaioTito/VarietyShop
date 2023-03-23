@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VarietyShop.Domain.Entities;
 using VarietyShop.Domain.Interfaces.Repositories;
-using VarietyShop.Domain.Models;
 using VarietyShop.Infra.Persistence.Data;
 
 namespace VarietyShop.Infra.Repositories
@@ -14,34 +14,49 @@ namespace VarietyShop.Infra.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task AddAsync()
+        public async Task AddAsync(User user)
         {
-            throw new NotImplementedException();
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync()
+        public async Task SaveShangesAsync()
         {
-            throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<List<User>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Users
+                .Include(x => x.Roles)
+                .ToListAsync();
         }
 
         public async Task<User> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var user = await _dbContext.Users
+                .Include(x => x.Roles)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user;
         }
 
         public async Task<User> GetByPasswordAndEmailAsync(string email, string password)
         {
-            return await _dbContext.Users.Include(x => x.Roles).SingleOrDefaultAsync(u => u.Email == email && u.PasswordHash == password);
+            return await _dbContext.Users
+                .Include(x => x.Roles)
+                .SingleOrDefaultAsync(u => u.Email == email && u.PasswordHash == password);
         }
 
-        public async Task UpdateAsync()
+        public async Task AddUserRoleAsync(UserRole userRole)
         {
-            throw new NotImplementedException();
+            await _dbContext.UserRoles.AddAsync(userRole);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

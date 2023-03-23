@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VarietyShop.Application.Commands.CreateUser;
+using VarietyShop.Application.Commands.CreateUserRole;
 using VarietyShop.Application.Commands.DeleteUser;
 using VarietyShop.Application.Commands.LoginUser;
 using VarietyShop.Application.Commands.UpdateUser;
@@ -23,7 +24,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
 
     public async Task<IActionResult> GetAllUsers()
     {
@@ -35,7 +36,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("id:int")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
 
     public async Task<IActionResult> GetUserById(int id)
     {
@@ -56,8 +57,18 @@ public class UsersController : ControllerBase
         return CreatedAtAction(nameof(GetUserById), new { id }, command);
     }
 
+    [HttpPost("role")]
+    [Authorize(Roles = "Admin")]
+
+    public async Task<IActionResult> CreateRole([FromBody] CreateUserRoleCommand command)
+    {
+        await _mediator.Send(command);
+
+        return NoContent();
+    }
+
     [HttpPut]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
     {
         await _mediator.Send(command);
@@ -66,7 +77,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("id:int")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
         var command = new DeleteUserCommand(id);
