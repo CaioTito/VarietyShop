@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VarietyShop.Application.Commands.Products.AddProduct
+namespace VarietyShop.Application.Commands.Products.AddProduct;
+
+public class AddProductCommand
 {
-    internal class AddProductCommand
-    {
-    }
 }
