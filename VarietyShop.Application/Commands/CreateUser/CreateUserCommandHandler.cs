@@ -8,11 +8,13 @@ namespace VarietyShop.Application.Commands.CreateUser
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
         private readonly IAuthService _authService;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IAuthService authService)
+        public CreateUserCommandHandler(IUserRepository userRepository, IRoleRepository roleRepository, IAuthService authService)
         {
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
             _authService = authService;
         }
 
@@ -20,7 +22,15 @@ namespace VarietyShop.Application.Commands.CreateUser
         {
             var passwordHash = _authService.GeneratePasswordHash(request.PasswordHash);
 
-            var user = new User(request.Name, request.Cpf, request.Email, passwordHash, request.Slug, request.Active);
+            var roles = new List<Role>();
+
+            foreach (var role in request.RolesId)
+            {
+                var actualRole = await _roleRepository.GetByIdAsync(role);
+                roles.Add(actualRole);
+            }            
+
+            var user = new User(request.Name, request.Cpf, request.Email, passwordHash, request.Slug, request.Active, roles);
 
             await _userRepository.AddAsync(user);
 
