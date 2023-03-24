@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using VarietyShop.Application.ViewModels;
@@ -17,7 +16,9 @@ namespace VarietyShop.Application.Queries.GetUserById
         }
         public async Task<UserViewModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetByIdAsync(request.Id);
+
+            return new UserViewModel(user.Name, user.Cpf, user.Email, user.Roles);
         }
     }
 }

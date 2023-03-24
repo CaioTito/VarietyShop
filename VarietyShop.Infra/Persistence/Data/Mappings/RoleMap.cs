@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VarietyShop.Domain.Models;
+using VarietyShop.Domain.Entities;
 
 namespace VarietyShop.Infra.Persistence.Data.Mappings;
 

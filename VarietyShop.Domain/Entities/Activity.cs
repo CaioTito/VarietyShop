@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using VarietyShop.Domain.Entities;
 
-namespace VarietyShop.Domain.Models;
+namespace VarietyShop.Domain.Entities;
 
 public class Activity : BaseEntity
 {

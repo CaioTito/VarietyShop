@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using VarietyShop.Domain.Interfaces.Repositories;
@@ -16,6 +15,12 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
     }
     public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetByIdAsync(request.Id);
+
+        user.Update(user.Email, user.Roles);
+
+        await _userRepository.SaveShangesAsync();
+
+        return Unit.Value;
     }
 }

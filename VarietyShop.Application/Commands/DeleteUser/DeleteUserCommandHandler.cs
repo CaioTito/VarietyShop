@@ -16,7 +16,13 @@ namespace VarietyShop.Application.Commands.DeleteUser
         }
         public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetByIdAsync(request.Id);
+
+            user.Deactivate();
+
+            await _userRepository.SaveShangesAsync();
+
+            return Unit.Value;
         }
     }
 }

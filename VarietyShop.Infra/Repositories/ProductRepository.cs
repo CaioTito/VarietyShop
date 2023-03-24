@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using VarietyShop.Domain.Entities;
 using VarietyShop.Domain.Interfaces.Repositories;
-using VarietyShop.Domain.Models;
 using VarietyShop.Infra.Persistence.Data;
 
 namespace VarietyShop.Infra.Repositories;
@@ -11,31 +12,54 @@ public class ProductRepository : IProductRepository
 {
     private readonly VarietyShopDataContext _dbContext;
 
-    public ProductRepository(VarietyShopDataContext dbContext)
+    public ProductRepository(VarietyShopDataContext dbContext) => _dbContext = dbContext;
+
+    public async Task<int> Count() => await _dbContext.Products.AsNoTracking().CountAsync();
+
+    public async Task<List<Product>> GetAllAsync(int page, int pageSize) =>
+        await _dbContext
+                .Products
+                .AsNoTracking()
+                .Include(x => x.Category)
+                .Skip(page * pageSize)
+                .Take(pageSize)
+                .OrderBy(x => x.Name)
+                .ToListAsync();
+
+    public async Task<List<Product>> GetAllByCategoryAsync(int page, int pageSize, string category) =>
+        await _dbContext
+                .Products
+                .AsNoTracking()
+                .Include(x => x.Category)
+                .Where(x => x.Category.Slug == category)
+                .Skip(page * pageSize)
+                .Take(pageSize)
+                .OrderBy(x => x.Name)
+                .ToListAsync();
+
+    public async Task<Product> GetByIdAsync(int id) =>
+        await _dbContext
+                .Products
+                .AsNoTracking()
+                .Include(x => x.Category)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+    public async Task<Product> GetBySlugAsync(string slug) =>
+        await _dbContext
+                .Products
+                .AsNoTracking()
+                .Include(x => x.Category)
+                .FirstOrDefaultAsync(x => x.Slug == slug);
+
+    public async Task AddAsync(Product product)
     {
-        _dbContext = dbContext;
+        await _dbContext.Products.AddAsync(product);
+        await _dbContext.SaveChangesAsync();
     }
 
-    public Task<List<Product>> GetAllAsync()
+    public async Task UpdateAsync(Product product)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<Product> GetByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
-    public Task<Product> AddAsync(Product product)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> UpdateAsync(Product product, int id)
-    {
-        throw new NotImplementedException();
-    }
-    public Task<bool> DeleteAsync(int id)
-    {
-        throw new NotImplementedException();
+        _dbContext.Products.Update(product);
+        await _dbContext.SaveChangesAsync();
     }
 }

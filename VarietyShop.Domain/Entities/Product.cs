@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using VarietyShop.Domain.Entities;
 
-namespace VarietyShop.Domain.Models;
+namespace VarietyShop.Domain.Entities;
 
 public class Product : BaseEntity
 {
-    public Product(int categoryId, int quantity, decimal value, DateTime entryDate)
+    public Product(int categoryId, int quantity, decimal value, DateTime entryDate, string name, string slug, bool active)
     {
         CategoryId = categoryId;
         Quantity = quantity;
         Value = value;
         EntryDate = entryDate;
+        Name = name;
+        Slug = slug;
+        Active = active;
     }
 
     public int CategoryId { get; private set; }
