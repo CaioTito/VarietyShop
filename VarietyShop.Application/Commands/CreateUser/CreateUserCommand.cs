@@ -10,4 +10,5 @@ public class CreateUserCommand : IRequest<int>
     public string PasswordHash { get; set; }
     public string Slug { get; set; }
     public bool Active { get; set; }
+    public List<int> RolesId { get; set; }
 }

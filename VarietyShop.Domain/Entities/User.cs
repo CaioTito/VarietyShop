@@ -4,7 +4,7 @@ namespace VarietyShop.Domain.Entities;
 
 public class User : BaseEntity
 {
-    public User(string name, string cpf, string email, string passwordHash, string slug, bool active)
+    public User(string name, string cpf, string email, string passwordHash, string slug, bool active, List<Role> roles)
     {
         Name = name;
         Cpf = cpf;
@@ -12,6 +12,7 @@ public class User : BaseEntity
         PasswordHash = passwordHash;
         Slug = slug;
         Active = active;
+        Roles = roles;
     }
 
     public string Cpf { get; private set; }
