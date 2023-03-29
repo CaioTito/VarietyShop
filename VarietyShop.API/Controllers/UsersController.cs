@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using VarietyShop.Application.Commands.UpdateUser;
 using VarietyShop.Application.Commands.Users.CreateUser;
 using VarietyShop.Application.Commands.Users.CreateUserRole;
 using VarietyShop.Application.Commands.Users.DeleteUser;
 using VarietyShop.Application.Commands.Users.LoginUser;
+using VarietyShop.Application.Commands.Users.UpdateUser;
 using VarietyShop.Application.Queries.Users.GetAllUsers;
 using VarietyShop.Application.Queries.Users.GetUserById;
 

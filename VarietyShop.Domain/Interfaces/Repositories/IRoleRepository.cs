@@ -1,4 +1,6 @@
-﻿using VarietyShop.Domain.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using VarietyShop.Domain.Entities;
 
 namespace VarietyShop.Domain.Interfaces.Repositories;
 

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using VarietyShop.Domain.Entities;
 using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.Infra.Persistence.Data;

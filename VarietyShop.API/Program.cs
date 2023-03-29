@@ -129,6 +129,7 @@ void ConfigureServices(WebApplicationBuilder builder)
 void ConfigureRepositories(WebApplicationBuilder builder)
 {
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 }
 #endregion

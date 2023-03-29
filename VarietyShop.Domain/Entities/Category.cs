@@ -1,4 +1,6 @@
-﻿namespace VarietyShop.Domain.Entities;
+﻿using System.Collections.Generic;
+
+namespace VarietyShop.Domain.Entities;
 
 public class Category : BaseEntity
 {

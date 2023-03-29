@@ -1,7 +1,14 @@
-﻿namespace VarietyShop.Domain.Entities;
+﻿using System.Collections.Generic;
+
+namespace VarietyShop.Domain.Entities;
 
 public class User : BaseEntity
 {
+    public User()
+    {
+        
+    }
+
     public User(string name, string cpf, string email, string passwordHash, string slug, bool active, List<Role> roles)
     {
         Name = name;

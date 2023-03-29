@@ -1,6 +1,9 @@
 ﻿using MediatR;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using VarietyShop.Application.ViewModels;
-using VarietyShop.Domain.Entities;
 using VarietyShop.Domain.Interfaces.Repositories;
 
 namespace VarietyShop.Application.Queries.Roles.GetAllRoles

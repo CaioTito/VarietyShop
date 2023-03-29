@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace VarietyShop.Application.Commands.UpdateUser
+namespace VarietyShop.Application.Commands.Users.UpdateUser
 {
     public class UpdateUserCommand : IRequest<Unit>
     {

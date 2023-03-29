@@ -1,4 +1,5 @@
-﻿using VarietyShop.Domain.Entities;
+﻿using System.Collections.Generic;
+using VarietyShop.Domain.Entities;
 
 namespace VarietyShop.Application.ViewModels
 {

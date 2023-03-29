@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System.Collections.Generic;
 
 namespace VarietyShop.Application.Commands.Users.CreateUser;
 
