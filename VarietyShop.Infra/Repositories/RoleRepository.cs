@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using VarietyShop.Domain.Entities;
 using VarietyShop.Domain.Interfaces.Repositories;
@@ -20,6 +21,12 @@ public class RoleRepository : IRoleRepository
         await _dbContext.Roles.AddAsync(role);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<List<Role>> GetAllAsync()
+    {
+        return await _dbContext.Roles.AsNoTracking().ToListAsync();
+    }
+
     public async Task<Role> GetByIdAsync(int id)
     {
         var role = await _dbContext.Roles
@@ -32,5 +39,10 @@ public class RoleRepository : IRoleRepository
         }
 
         return role;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _dbContext.SaveChangesAsync();
     }
 }
