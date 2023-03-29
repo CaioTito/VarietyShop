@@ -2,7 +2,7 @@
 using VarietyShop.Domain.Entities;
 using VarietyShop.Domain.Interfaces.Repositories;
 
-namespace VarietyShop.Application.Commands.CreateUserRole
+namespace VarietyShop.Application.Commands.Users.CreateUserRole
 {
     public class CreateUserRoleCommandHandler : IRequestHandler<CreateUserRoleCommand, Unit>
     {

@@ -2,7 +2,7 @@
 using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.Domain.Interfaces.Services;
 
-namespace VarietyShop.Application.Commands.LoginUser;
+namespace VarietyShop.Application.Commands.Users.LoginUser;
 
 public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, string>
 {
