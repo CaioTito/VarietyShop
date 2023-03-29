@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
-using VarietyShop.Application.Commands.CreateUser;
+using VarietyShop.Application.Commands.Users.CreateUser;
 using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.Domain.Interfaces.Services;
 using VarietyShop.Infra.Auth;

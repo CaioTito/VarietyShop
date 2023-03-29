@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace VarietyShop.Application.Commands.DeleteUser;
+namespace VarietyShop.Application.Commands.Users.DeleteUser;
 
 public class DeleteUserCommand : IRequest<Unit>
 {

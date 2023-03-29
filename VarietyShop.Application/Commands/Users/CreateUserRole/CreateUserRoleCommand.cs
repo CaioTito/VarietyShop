@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace VarietyShop.Application.Commands.CreateUserRole
+namespace VarietyShop.Application.Commands.Users.CreateUserRole
 {
     public class CreateUserRoleCommand : IRequest<Unit>
     {

@@ -1,14 +1,14 @@
-﻿using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using VarietyShop.Application.Commands.CreateUser;
-using VarietyShop.Application.Commands.CreateUserRole;
-using VarietyShop.Application.Commands.DeleteUser;
-using VarietyShop.Application.Commands.LoginUser;
+using System.Threading.Tasks;
 using VarietyShop.Application.Commands.UpdateUser;
-using VarietyShop.Application.Queries.GetAllUsers;
-using VarietyShop.Application.Queries.GetUserById;
+using VarietyShop.Application.Commands.Users.CreateUser;
+using VarietyShop.Application.Commands.Users.CreateUserRole;
+using VarietyShop.Application.Commands.Users.DeleteUser;
+using VarietyShop.Application.Commands.Users.LoginUser;
+using VarietyShop.Application.Queries.Users.GetAllUsers;
+using VarietyShop.Application.Queries.Users.GetUserById;
 
 namespace VarietyShop.API.Controllers;
 
@@ -92,6 +92,6 @@ public class UsersController : ControllerBase
 
     public async Task<IActionResult> Login([FromBody] LoginUserCommand login)
     {
-        return Ok(new { token = await _mediator.Send(login) } );
+        return Ok(new { token = await _mediator.Send(login) });
     }
 }

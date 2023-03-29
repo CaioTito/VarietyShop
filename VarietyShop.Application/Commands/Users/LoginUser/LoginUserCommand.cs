@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace VarietyShop.Application.Commands.LoginUser;
+namespace VarietyShop.Application.Commands.Users.LoginUser;
 
 public class LoginUserCommand : IRequest<string>
 {

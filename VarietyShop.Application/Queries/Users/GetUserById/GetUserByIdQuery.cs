@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using VarietyShop.Application.ViewModels;
 
-namespace VarietyShop.Application.Queries.GetUserById
+namespace VarietyShop.Application.Queries.Users.GetUserById
 {
     public class GetUserByIdQuery : IRequest<UserViewModel>
     {

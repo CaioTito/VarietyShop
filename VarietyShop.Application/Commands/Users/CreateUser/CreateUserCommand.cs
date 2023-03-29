@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace VarietyShop.Application.Commands.CreateUser;
+namespace VarietyShop.Application.Commands.Users.CreateUser;
 
 public class CreateUserCommand : IRequest<int>
 {
