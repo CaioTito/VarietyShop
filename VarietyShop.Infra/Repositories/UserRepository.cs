@@ -54,11 +54,5 @@ namespace VarietyShop.Infra.Repositories
                 .Include(x => x.Roles)
                 .SingleOrDefaultAsync(u => u.Email == email && u.PasswordHash == password);
         }
-
-        public async Task AddUserRoleAsync(UserRole userRole)
-        {
-            await _dbContext.UserRoles.AddAsync(userRole);
-            await _dbContext.SaveChangesAsync();
-        }
     }
 }

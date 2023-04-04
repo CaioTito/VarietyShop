@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using VarietyShop.Application.Commands.Users.CreateUser;
-using VarietyShop.Application.Commands.Users.CreateUserRole;
 using VarietyShop.Application.Commands.Users.DeleteUser;
 using VarietyShop.Application.Commands.Users.LoginUser;
 using VarietyShop.Application.Commands.Users.UpdateUser;
@@ -55,16 +54,6 @@ public class UsersController : ControllerBase
         var id = await _mediator.Send(command);
 
         return CreatedAtAction(nameof(GetUserById), new { id }, command);
-    }
-
-    [HttpPost("role")]
-    [Authorize(Roles = "Admin")]
-
-    public async Task<IActionResult> CreateRole([FromBody] CreateUserRoleCommand command)
-    {
-        await _mediator.Send(command);
-
-        return NoContent();
     }
 
     [HttpPut]

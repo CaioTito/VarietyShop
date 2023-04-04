@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
 using VarietyShop.Application.Commands.Users.CreateUser;
+using VarietyShop.Application.Validators.Users;
 using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.Domain.Interfaces.Services;
 using VarietyShop.Infra.Auth;
@@ -72,6 +75,9 @@ void ConfigureMvc(WebApplicationBuilder builder)
             x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
         });
+
+    builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+    builder.Services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
 }
 #endregion
 
