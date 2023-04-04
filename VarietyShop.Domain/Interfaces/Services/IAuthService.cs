@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using VarietyShop.Domain.Entities;
 
 namespace VarietyShop.Domain.Interfaces.Services;

@@ -1,4 +1,7 @@
-﻿namespace VarietyShop.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace VarietyShop.Domain.Entities;
 
 public class Activity : BaseEntity
 {
