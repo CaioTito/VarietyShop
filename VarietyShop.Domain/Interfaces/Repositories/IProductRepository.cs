@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using VarietyShop.Domain.Entities;
+using VarietyShop.Domain.Interfaces.Abstractions;
 
 namespace VarietyShop.Domain.Interfaces.Repositories;
 
-public interface IProductRepository
+public interface IProductRepository : IUnitOfWork
 {
     Task<int> Count();
     Task<List<Product>> GetAllAsync(int page, int pageSize);
@@ -12,5 +13,5 @@ public interface IProductRepository
     Task<Product> GetByIdAsync(int id);
     Task<Product> GetBySlugAsync(string slug);
     Task AddAsync(Product product);
-    Task UpdateAsync(Product product);
+    void Update(Product product);
 }

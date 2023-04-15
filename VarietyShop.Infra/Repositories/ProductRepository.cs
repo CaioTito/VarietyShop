@@ -51,15 +51,11 @@ public class ProductRepository : IProductRepository
                 .Include(x => x.Category)
                 .FirstOrDefaultAsync(x => x.Slug == slug);
 
-    public async Task AddAsync(Product product)
-    {
-        await _dbContext.Products.AddAsync(product);
-        await _dbContext.SaveChangesAsync();
-    }
+    public async Task AddAsync(Product product) => await _dbContext.Products.AddAsync(product);
+    
+    public void Update(Product product) => _dbContext.Products.Update(product);
 
-    public async Task UpdateAsync(Product product)
-    {
-        _dbContext.Products.Update(product);
-        await _dbContext.SaveChangesAsync();
-    }
+    public async Task<bool> Commit() => await _dbContext.SaveChangesAsync() > 0;
+
+    public Task Rollback() => Task.CompletedTask;
 }
