@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using System;
 
-namespace VarietyShop.Application.Commands.Products.AddProduct;
+namespace VarietyShop.Application.Commands.Products.CreateProduct;
 
-public class AddProductCommand : IRequest<int>
+public class CreateProductCommand : IRequest<int>
 {
     public int CategoryId { get; set; }
     public int Quantity { get; set; }

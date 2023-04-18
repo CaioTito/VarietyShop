@@ -22,4 +22,11 @@ public class Product : BaseEntity
     public DateTime EntryDate { get; set; }
     public Category Category { get; private set; }
     public List<Activity> Activities { get; private set; }
+
+    public void Update(int categoryId, string name, string slug)
+    {
+        CategoryId = categoryId;
+        Name = name;
+        Slug = slug;
+    }
 }
