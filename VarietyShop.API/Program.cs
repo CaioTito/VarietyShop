@@ -12,11 +12,13 @@ using System.Text;
 using System.Text.Json.Serialization;
 using VarietyShop.Application.Commands.Users.CreateUser;
 using VarietyShop.Application.Validators.Users;
+using VarietyShop.Domain.Interfaces.Abstractions;
 using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.Domain.Interfaces.Services;
 using VarietyShop.Infra.Auth;
 using VarietyShop.Infra.Persistence.Data;
 using VarietyShop.Infra.Repositories;
+using VarietyShop.Infra.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -137,5 +139,6 @@ void ConfigureRepositories(WebApplicationBuilder builder)
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 }
 #endregion

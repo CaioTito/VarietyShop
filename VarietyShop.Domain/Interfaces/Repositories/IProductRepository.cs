@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using VarietyShop.Domain.Entities;
-using VarietyShop.Domain.Interfaces.Abstractions;
 
 namespace VarietyShop.Domain.Interfaces.Repositories;
 
-public interface IProductRepository : IUnitOfWork
+public interface IProductRepository : IDisposable
 {
     Task<int> Count();
     Task<List<Product>> GetAllAsync(int page, int pageSize);
