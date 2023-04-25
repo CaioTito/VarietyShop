@@ -52,10 +52,9 @@ public class ProductRepository : IProductRepository
                 .FirstOrDefaultAsync(x => x.Slug == slug);
 
     public async Task AddAsync(Product product) => await _dbContext.Products.AddAsync(product);
-    
+
     public void Update(Product product) => _dbContext.Products.Update(product);
 
-    public async Task<bool> Commit() => await _dbContext.SaveChangesAsync() > 0;
+    public void Dispose() => _dbContext.Dispose();
 
-    public Task Rollback() => Task.CompletedTask;
 }

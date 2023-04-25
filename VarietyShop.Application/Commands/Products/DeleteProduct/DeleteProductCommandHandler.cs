@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using VarietyShop.Domain.Interfaces.Abstractions;
 using VarietyShop.Domain.Interfaces.Repositories;
 
 namespace VarietyShop.Application.Commands.Products.DeleteProduct;
@@ -8,10 +9,12 @@ namespace VarietyShop.Application.Commands.Products.DeleteProduct;
 public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Unit>
 {
     private readonly IProductRepository _productRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteProductCommandHandler(IProductRepository productRepository)
+    public DeleteProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
     {
         _productRepository = productRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
@@ -25,7 +28,7 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
 
         _productRepository.Update(product);
 
-        await _productRepository.Commit();
+        await _unitOfWork.Commit();
 
         return Unit.Value;
     }
