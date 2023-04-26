@@ -29,9 +29,7 @@ public class RoleRepository : IRoleRepository
 
     public async Task<Role> GetByIdAsync(int id)
     {
-        var role = await _dbContext.Roles
-            .Include(x => x.Users)
-            .FirstOrDefaultAsync(x => x.Id == id);
+        var role = await _dbContext.Roles.FirstOrDefaultAsync(x => x.Id == id);
 
         if (role == null)
         {
