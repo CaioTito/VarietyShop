@@ -5,17 +5,17 @@ namespace VarietyShop.Application.ViewModels
 {
     public class UserViewModel
     {
-        public UserViewModel(string name, string cpf, string email, List<Role> role)
+        public UserViewModel(string name, string cpf, string email, List<RoleViewModel> roles)
         {
             Name = name;
             Cpf = cpf;
             Email = email;
-            Role = role;
+            Roles = roles;
         }
 
         public string Name { get; private set; }
         public string Cpf { get; private set; }
         public string Email { get; private set; }
-        public List<Role> Role { get; private set; }
+        public List<RoleViewModel> Roles { get; private set; }
     }
 }

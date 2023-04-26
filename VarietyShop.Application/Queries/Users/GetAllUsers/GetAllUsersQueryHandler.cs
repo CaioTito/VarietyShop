@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using FluentValidation.Results;
+using MediatR;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using VarietyShop.Application.ViewModels;
+using VarietyShop.Domain.Entities;
 using VarietyShop.Domain.Interfaces.Repositories;
 
 namespace VarietyShop.Application.Queries.Users.GetAllUsers
@@ -20,9 +22,17 @@ namespace VarietyShop.Application.Queries.Users.GetAllUsers
         {
             var user = await _userRepository.GetAllAsync();
 
-            return user
-                .Select(p => new UserViewModel(p.Name, p.Cpf, p.Email, p.Roles))
+            var userViewModel =  user
+                .Select(u => new UserViewModel(u.Name, 
+                    u.Cpf, 
+                    u.Email, 
+                    u.Roles.Select(r => new RoleViewModel(r.Id,
+                    r.Name, 
+                    r.Slug, 
+                    r.Active)).ToList()))
                 .ToList();
+
+            return userViewModel;
         }
     }
 }

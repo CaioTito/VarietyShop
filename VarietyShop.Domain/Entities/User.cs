@@ -31,4 +31,16 @@ public class User : BaseEntity
         Email = email;
         Roles = role;
     }
+
+    public static User From(string name, string cpf, string email, string passwordHash, string slug, bool active, List<Role> roles)
+    {
+        return new User(
+        name,
+        cpf,
+        email,
+        passwordHash,
+        slug,
+        active,
+        roles);
+    }
 }

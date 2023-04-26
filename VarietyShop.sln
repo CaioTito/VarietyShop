@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VarietyShop.Domain", "Varie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VarietyShop.Infra", "VarietyShop.Infra\VarietyShop.Infra.csproj", "{308135CE-B3C0-41FA-B140-01DD0C271500}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VarietyShop.Application", "VarietyShop.Application\VarietyShop.Application.csproj", "{84BC203B-4605-4CEA-92E0-4DFAF8D93651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VarietyShop.Application", "VarietyShop.Application\VarietyShop.Application.csproj", "{84BC203B-4605-4CEA-92E0-4DFAF8D93651}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VarietyShop.UnitTests", "VarietyShop.UnitTests\VarietyShop.UnitTests.csproj", "{5F982B7D-C4D9-45B1-BE01-F07A0C8E162F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{84BC203B-4605-4CEA-92E0-4DFAF8D93651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84BC203B-4605-4CEA-92E0-4DFAF8D93651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84BC203B-4605-4CEA-92E0-4DFAF8D93651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F982B7D-C4D9-45B1-BE01-F07A0C8E162F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F982B7D-C4D9-45B1-BE01-F07A0C8E162F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F982B7D-C4D9-45B1-BE01-F07A0C8E162F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F982B7D-C4D9-45B1-BE01-F07A0C8E162F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

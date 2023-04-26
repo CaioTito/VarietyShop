@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using VarietyShop.Application.ViewModels;
@@ -18,7 +19,7 @@ namespace VarietyShop.Application.Queries.Users.GetUserById
         {
             var user = await _userRepository.GetByIdAsync(request.Id);
 
-            return new UserViewModel(user.Name, user.Cpf, user.Email, user.Roles);
+            return new UserViewModel(user.Name, user.Cpf, user.Email, user.Roles.Select(r=> new RoleViewModel(r.Id, r.Name, r.Slug, r.Active)).ToList());
         }
     }
 }
