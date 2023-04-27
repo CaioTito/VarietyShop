@@ -20,12 +20,7 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, int>
             .ToLower()
             .Replace(" ", "-");
 
-        var role = new Role
-        {
-            Name = request.Name,
-            Slug = slug,
-            Active = request.Active
-        };
+        var role = new Role(request.Name, slug, request.Active);
 
         await _roleRepository.AddAsync(role);
 
