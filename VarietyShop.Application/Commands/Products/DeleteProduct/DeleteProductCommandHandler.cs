@@ -8,27 +8,25 @@ namespace VarietyShop.Application.Commands.Products.DeleteProduct;
 
 public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Unit>
 {
-    private readonly IProductRepository _productRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
+    public DeleteProductCommandHandler(IUnitOfWork unitOfWork)
     {
-        _productRepository = productRepository;
         _unitOfWork = unitOfWork;
     }
 
     public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetByIdAsync(request.Id);
+        var product = await _unitOfWork.Products.GetByIdAsync(request.Id);
 
         if (product == null)
             return default;
 
         product.Deactivate();
 
-        _productRepository.Update(product);
+        _unitOfWork.Products.Update(product);
 
-        await _unitOfWork.Commit();
+        await _unitOfWork.SaveChangesAsync();
 
         return Unit.Value;
     }

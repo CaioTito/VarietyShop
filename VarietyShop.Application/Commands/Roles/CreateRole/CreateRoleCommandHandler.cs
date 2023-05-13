@@ -2,17 +2,18 @@
 using System.Threading;
 using System.Threading.Tasks;
 using VarietyShop.Domain.Entities;
+using VarietyShop.Domain.Interfaces.Abstractions;
 using VarietyShop.Domain.Interfaces.Repositories;
 
 namespace VarietyShop.Application.Commands.Roles.CreateRole;
 
 public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, int>
 {
-    private readonly IRoleRepository _roleRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateRoleCommandHandler(IRoleRepository roleRepository)
+    public CreateRoleCommandHandler(IUnitOfWork unitOfWork)
     {
-        _roleRepository = roleRepository;
+        _unitOfWork = unitOfWork;
     }
     public async Task<int> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
@@ -22,7 +23,9 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, int>
 
         var role = new Role(request.Name, slug, request.Active);
 
-        await _roleRepository.AddAsync(role);
+        await _unitOfWork.Roles.AddAsync(role);
+
+        await _unitOfWork.SaveChangesAsync();
 
         return role.Id;
     }

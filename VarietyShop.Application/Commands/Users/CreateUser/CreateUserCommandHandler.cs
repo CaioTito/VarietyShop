@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using VarietyShop.Domain.Entities;
+using VarietyShop.Domain.Interfaces.Abstractions;
 using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.Domain.Interfaces.Services;
 
@@ -10,14 +11,12 @@ namespace VarietyShop.Application.Commands.Users.CreateUser
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IRoleRepository _roleRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IRoleRepository roleRepository, IAuthService authService)
+        public CreateUserCommandHandler(IUnitOfWork unitOfWork, IAuthService authService)
         {
-            _userRepository = userRepository;
-            _roleRepository = roleRepository;
+            _unitOfWork = unitOfWork;
             _authService = authService;
         }
 
@@ -29,7 +28,7 @@ namespace VarietyShop.Application.Commands.Users.CreateUser
 
             foreach (var role in request.RolesId)
             {
-                var actualRole = await _roleRepository.GetByIdAsync(role);
+                var actualRole = await _unitOfWork.Roles.GetByIdAsync(role);
                 roles.Add(actualRole);
             }
 
@@ -41,7 +40,7 @@ namespace VarietyShop.Application.Commands.Users.CreateUser
                                 request.Active,
                                 roles);
 
-            await _userRepository.AddAsync(user);
+            await _unitOfWork.Users.AddAsync(user);
 
             return user.Id;
         }

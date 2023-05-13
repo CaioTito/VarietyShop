@@ -1,25 +1,62 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using System;
+using System.Threading.Tasks;
 using VarietyShop.Domain.Interfaces.Abstractions;
+using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.Infra.Persistence.Data;
 
-namespace VarietyShop.Infra.UnitOfWork
+namespace VarietyShop.Infra.UnitOfWork;
+
+public class UnitOfWork : IUnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    private IDbContextTransaction _transaction;
+    public ICategoryRepository Categories { get; }
+    public IProductRepository Products { get; }
+    public IRoleRepository Roles { get; }
+    public IUserRepository Users { get; }
+    private readonly VarietyShopDataContext _context;
+    public UnitOfWork(VarietyShopDataContext context, ICategoryRepository categories, IProductRepository products, IRoleRepository roles, IUserRepository users)
     {
-        private readonly VarietyShopDataContext _dbContext;
+        _context = context;
+        Categories = categories;
+        Products = products;
+        Roles = roles;
+        Users = users;
+    }
+    public async Task<bool> SaveChangesAsync()
+    {
+        return await _context.SaveChangesAsync() > 0;
+    }
 
-        public UnitOfWork(VarietyShopDataContext dbContext) => 
-            _dbContext = dbContext;       
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
-        public async Task<bool> Commit()
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            var sucess = (await _dbContext.SaveChangesAsync()) > 0;
-
-            return sucess;
+            _context.Dispose();
         }
+    }
 
-        public void Dispose() => _dbContext.Dispose();
+    public async Task BeginTransactionAsync()
+    {
+        _transaction = await _context.Database.BeginTransactionAsync();
+    }
 
-        public Task Rollback() => Task.CompletedTask;
+    public async Task CommitAsync()
+    {
+        try
+        {
+            await _transaction.CommitAsync();
+        }
+        catch (Exception ex)
+        {
+            await _transaction.RollbackAsync();
+            throw ex;
+        }
     }
 }

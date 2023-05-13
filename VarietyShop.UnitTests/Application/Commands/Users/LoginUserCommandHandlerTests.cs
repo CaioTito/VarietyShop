@@ -1,10 +1,7 @@
-﻿using Bogus;
-using Moq;
-using VarietyShop.Application.Commands.Users.DeleteUser;
+﻿using Moq;
 using VarietyShop.Application.Commands.Users.LoginUser;
-using VarietyShop.Application.Commands.Users.UpdateUser;
 using VarietyShop.Domain.Entities;
-using VarietyShop.Domain.Interfaces.Repositories;
+using VarietyShop.Domain.Interfaces.Abstractions;
 using VarietyShop.Domain.Interfaces.Services;
 using VarietyShop.UnitTests.Mocks;
 
@@ -12,14 +9,14 @@ namespace VarietyShop.UnitTests.Application.Commands.Users;
 
 public class LoginUserCommandHandlerTests
 {
-    private readonly Mock<IUserRepository> _userRepositoryMock;
+    private readonly Mock<IUnitOfWork> _unitOfWorkMock;
     private readonly Mock<IAuthService> _authServiceMock;
     private readonly LoginUserCommandHandler _loginUserCommandHandler;
     public LoginUserCommandHandlerTests()
     {
-        _userRepositoryMock = new Mock<IUserRepository>();
+        _unitOfWorkMock = new Mock<IUnitOfWork>();
         _authServiceMock = new Mock<IAuthService>();
-        _loginUserCommandHandler = new LoginUserCommandHandler(_authServiceMock.Object, _userRepositoryMock.Object);
+        _loginUserCommandHandler = new LoginUserCommandHandler(_authServiceMock.Object, _unitOfWorkMock.Object);
     }
 
     [Fact]
@@ -32,7 +29,7 @@ public class LoginUserCommandHandlerTests
         var user = UserMock.UserFaker.Generate();
 
         _authServiceMock.Setup(u => u.GeneratePasswordHash(It.IsAny<string>())).Returns(LoginUserCommand.Password);
-        _userRepositoryMock.Setup(u => u.GetByPasswordAndEmailAsync(It.IsAny<string>(), It.IsAny<string>()).Result).Returns(user);
+        _unitOfWorkMock.Setup(u => u.Users.GetByPasswordAndEmailAsync(It.IsAny<string>(), It.IsAny<string>()).Result).Returns(user);
         _authServiceMock.Setup(u => u.GenerateJwtToken(It.IsAny<string>(), It.IsAny<List<Role>>())).Returns(LoginUserCommand.Password);
 
         //Act
@@ -44,7 +41,7 @@ public class LoginUserCommandHandlerTests
         Assert.IsType<string>(token);
 
         _authServiceMock.Verify(u => u.GeneratePasswordHash(It.IsAny<string>()), Times.Once);
-        _userRepositoryMock.Verify(u => u.GetByPasswordAndEmailAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        _unitOfWorkMock.Verify(u => u.Users.GetByPasswordAndEmailAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         _authServiceMock.Verify(u => u.GenerateJwtToken(It.IsAny<string>(), It.IsAny<List<Role>>()), Times.Once);
     }
 
@@ -58,7 +55,7 @@ public class LoginUserCommandHandlerTests
         User user = null;
 
         _authServiceMock.Setup(u => u.GeneratePasswordHash(It.IsAny<string>())).Returns(LoginUserCommand.Password);
-        _userRepositoryMock.Setup(u => u.GetByPasswordAndEmailAsync(It.IsAny<string>(), It.IsAny<string>()).Result).Returns(user);
+        _unitOfWorkMock.Setup(u => u.Users.GetByPasswordAndEmailAsync(It.IsAny<string>(), It.IsAny<string>()).Result).Returns(user);
 
         //Act
 
@@ -69,6 +66,6 @@ public class LoginUserCommandHandlerTests
         Assert.Null(token);
 
         _authServiceMock.Verify(u => u.GeneratePasswordHash(It.IsAny<string>()), Times.Once);
-        _userRepositoryMock.Verify(u => u.GetByPasswordAndEmailAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        _unitOfWorkMock.Verify(u => u.Users.GetByPasswordAndEmailAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 }

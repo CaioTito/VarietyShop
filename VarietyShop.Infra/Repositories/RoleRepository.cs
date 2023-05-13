@@ -19,12 +19,11 @@ public class RoleRepository : IRoleRepository
     public async Task AddAsync(Role role)
     {
         await _dbContext.Roles.AddAsync(role);
-        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<List<Role>> GetAllAsync()
     {
-        return await _dbContext.Roles.AsNoTracking().ToListAsync();
+        return await _dbContext.Roles.ToListAsync();
     }
 
     public async Task<Role> GetByIdAsync(int id)
@@ -37,10 +36,5 @@ public class RoleRepository : IRoleRepository
         }
 
         return role;
-    }
-
-    public async Task SaveChangesAsync()
-    {
-        await _dbContext.SaveChangesAsync();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Moq;
 using VarietyShop.Application.Commands.Users.DeleteUser;
+using VarietyShop.Domain.Interfaces.Abstractions;
 using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.UnitTests.Mocks;
 
@@ -7,12 +8,12 @@ namespace VarietyShop.UnitTests.Application.Commands.Users;
 
 public class DeleteRoleCommandHandlerTests
 {
-    private readonly Mock<IUserRepository> _userRepositoryMock;
+    private readonly Mock<IUnitOfWork> _unitOfWorkMock;
     private readonly DeleteUserCommandHandler _deleteUserCommandHandler;
     public DeleteRoleCommandHandlerTests()
     {
-        _userRepositoryMock = new Mock<IUserRepository>();
-        _deleteUserCommandHandler = new DeleteUserCommandHandler(_userRepositoryMock.Object);
+        _unitOfWorkMock = new Mock<IUnitOfWork>();
+        _deleteUserCommandHandler = new DeleteUserCommandHandler(_unitOfWorkMock.Object);
     }
 
     [Fact]
@@ -24,7 +25,7 @@ public class DeleteRoleCommandHandlerTests
 
         var user = UserMock.UserFaker.Generate();
 
-        _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<int>()).Result).Returns(user);
+        _unitOfWorkMock.Setup(u => u.Users.GetByIdAsync(It.IsAny<int>()).Result).Returns(user);
 
         //Act
 
@@ -32,7 +33,7 @@ public class DeleteRoleCommandHandlerTests
 
         //Assert
 
-        _userRepositoryMock.Verify(u => u.GetByIdAsync(It.IsAny<int>()), Times.Once);
-        _userRepositoryMock.Verify(u => u.SaveShangesAsync(), Times.Once);
+        _unitOfWorkMock.Verify(u => u.Users.GetByIdAsync(It.IsAny<int>()), Times.Once);
+        _unitOfWorkMock.Verify(uow => uow.SaveChangesAsync(), Times.Once);
     }
 }

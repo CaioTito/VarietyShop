@@ -1,25 +1,26 @@
 ﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using VarietyShop.Domain.Interfaces.Abstractions;
 using VarietyShop.Domain.Interfaces.Repositories;
 
 namespace VarietyShop.Application.Commands.Users.DeleteUser;
 
 public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Unit>
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteUserCommandHandler(IUserRepository userRepository)
+    public DeleteUserCommandHandler(IUnitOfWork unitOfWork)
     {
-        _userRepository = userRepository;
+        _unitOfWork = unitOfWork;
     }
     public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByIdAsync(request.Id);
+        var user = await _unitOfWork.Users.GetByIdAsync(request.Id);
 
         user.Deactivate();
 
-        await _userRepository.SaveShangesAsync();
+        await _unitOfWork.SaveChangesAsync();
 
         return Unit.Value;
     }

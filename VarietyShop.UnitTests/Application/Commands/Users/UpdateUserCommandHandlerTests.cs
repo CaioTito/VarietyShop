@@ -1,6 +1,7 @@
 ﻿using Moq;
 using VarietyShop.Application.Commands.Users.DeleteUser;
 using VarietyShop.Application.Commands.Users.UpdateUser;
+using VarietyShop.Domain.Interfaces.Abstractions;
 using VarietyShop.Domain.Interfaces.Repositories;
 using VarietyShop.UnitTests.Mocks;
 
@@ -8,12 +9,12 @@ namespace VarietyShop.UnitTests.Application.Commands.Users;
 
 public class UpdateUserCommandHandlerTests
 {
-    private readonly Mock<IUserRepository> _userRepositoryMock;
+    private readonly Mock<IUnitOfWork> _unitOfWorkMock;
     private readonly UpdateUserCommandHandler _updateUserCommandHandler;
     public UpdateUserCommandHandlerTests()
     {
-        _userRepositoryMock = new Mock<IUserRepository>();
-        _updateUserCommandHandler = new UpdateUserCommandHandler(_userRepositoryMock.Object);
+        _unitOfWorkMock = new Mock<IUnitOfWork>();
+        _updateUserCommandHandler = new UpdateUserCommandHandler(_unitOfWorkMock.Object);
     }
 
     [Fact]
@@ -25,7 +26,7 @@ public class UpdateUserCommandHandlerTests
 
         var user = UserMock.UserFaker.Generate();
 
-        _userRepositoryMock.Setup(u => u.GetByIdAsync(It.IsAny<int>()).Result).Returns(user);
+        _unitOfWorkMock.Setup(u => u.Users.GetByIdAsync(It.IsAny<int>()).Result).Returns(user);
 
         //Act
 
@@ -33,7 +34,7 @@ public class UpdateUserCommandHandlerTests
 
         //Assert
 
-        _userRepositoryMock.Verify(u => u.GetByIdAsync(It.IsAny<int>()), Times.Once);
-        _userRepositoryMock.Verify(u => u.SaveShangesAsync(), Times.Once);
+        _unitOfWorkMock.Verify(u => u.Users.GetByIdAsync(It.IsAny<int>()), Times.Once);
+        _unitOfWorkMock.Verify(uow => uow.SaveChangesAsync(), Times.Once);
     }
 }

@@ -19,12 +19,6 @@ namespace VarietyShop.Infra.Repositories
         public async Task AddAsync(User user)
         {
             await _dbContext.Users.AddAsync(user);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task SaveShangesAsync()
-        {
-            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<List<User>> GetAllAsync()

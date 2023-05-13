@@ -2,15 +2,16 @@
 using System.Threading;
 using System.Threading.Tasks;
 using VarietyShop.Domain.Entities;
+using VarietyShop.Domain.Interfaces.Abstractions;
 using VarietyShop.Domain.Interfaces.Repositories;
 
 namespace VarietyShop.Application.Commands.Products.CreateProduct;
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
 {
-    private readonly IProductRepository _productRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateProductCommandHandler(IProductRepository productRepository) => _productRepository = productRepository;
+    public CreateProductCommandHandler(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
 
     public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
@@ -23,7 +24,9 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             request.Slug, 
             request.Active);
 
-        await _productRepository.AddAsync(product);
+        await _unitOfWork.Products.AddAsync(product);
+
+        await _unitOfWork.SaveChangesAsync();
 
         return product.Id;
     }
